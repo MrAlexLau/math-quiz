@@ -5,24 +5,33 @@ const init = (ns) => {
   const CEILING = 100;
 
   const startGame = () => {
-    let timeLeft = 30000;
+    ns.timeLeft = 30000;
+    $('.game-over-menu,.menu').hide();
+    $('.input-container,.results-container').show();
+
     const tick = () => {
-      if (timeLeft >= 1000) {
-        timeLeft -= 1000;
-        const timeInSeconds = timeLeft / 1000;
+      if (ns.timeLeft >= 1000) {
+        ns.timeLeft -= 1000;
+        const timeInSeconds = ns.timeLeft / 1000;
         $('.timer').html(`Time remaining: ${timeInSeconds}`);
       } else {
-        $('.input-container').hide();
+        endGame();
       }
     };
     setInterval(() => tick(), 1000);
 
     ns.score = 0;
     $('.score').html(`Score: ${ns.score}`);
-    $('.timer').html(`Time remaining: ${timeLeft / 1000}`);
+    $('.timer').html(`Time remaining: ${ns.timeLeft / 1000}`);
 
     generateNextProblem();
   };
+
+  const endGame = () => {
+    $('.game-over-menu').show();
+    $('.input-container').hide();
+    $('.timer').hide();
+  }
 
   const verifyResult = (numerator) => {
     const expectedResult = parseFloat(numerator) / 2;
@@ -41,13 +50,18 @@ const init = (ns) => {
     const numerator = randomNumber(CEILING);
     $('.line-1').html(numerator);
     $('.line-2').html('&divide; 2');
-    $('.user-input').change(() => verifyResult(numerator));
+    $('.user-input').unbind();
     $('.user-input').keyup(() => verifyResult(numerator));
     $('.user-input').val('');
     $('.user-input').focus();
   };
 
-  $(() => startGame());
+  $(() => {
+    $('.new-game').click((e) => {
+      e.preventDefault();
+      startGame();
+    });
+  });
 }
 
 init(window.mathQuiz);

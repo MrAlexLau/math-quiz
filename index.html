@@ -2,19 +2,35 @@
 <html>
   <head>
     <title>Math Quiz</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="/game.js"></script>
+    <link rel="stylesheet" type="text/css" href="game.css">
+    <script src="game.js"></script>
   </head>
+
   <body>
     <div class="main-content">
+      <div class="menu">
+        <a class="new-game start-game" href="#">Start Game</a>
+      </div>
+
+      <div class="game-over-menu">
+        <div class="title">
+          Game Over
+          <a class="new-game" href="#">New Game?</a>
+        </div>
+      </div>
+
       <div class="input-container">
         <div class="line-1"></div>
         <div class="line-2"></div>
         <input class="user-input" type="number" />
       </div>
-    </div>
 
-    <div class="timer"></div>
-    <div class="score"></div>
+      <div class="results-container">
+        <div class="timer"></div>
+        <div class="score"></div>
+      </div>
+    </div>
   </body>
 </html>
